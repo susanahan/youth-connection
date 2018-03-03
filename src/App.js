@@ -7,6 +7,7 @@ class App extends Component {
       <div>
           <h1>Welcome to Our Page</h1>
         <p> type stuff        </p>
+        <h2> Type more stuff</h2>
       </div>
     );
   }

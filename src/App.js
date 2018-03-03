@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Link, Switch, Route} from 'react-router-dom'
+
 import Home from './components/Home';
 import Jobs from './components/Jobs';
+import AfterSchool from './components/Afterschool'
 
 
 class App extends Component {
@@ -9,14 +11,7 @@ class App extends Component {
     super(props)
     this.state = {
       dataJob:[],
-      dataAfter:[],
-      Bronx:[],
-      Brooklyn: [],
-      'New York': [],
-      Manhattan: [],
-      Queens: [],
-      'Staten Island': [],
-      'Long Island  City': []
+      dataAfter:[]
     }
   }
 
@@ -30,33 +25,11 @@ class App extends Component {
           this.setState({
           dataJob: data
           }) 
-      this.boroughComunity();
       })
       .catch(err => {
           console.log(err)
       })
   }
-  boroughComunity = () =>{
-    let boroughs = [];
-    if(this.state.dataJob.length > 0){
-      this.state.dataJob.forEach(job=>{
-        if(!boroughs.includes(job.borough_community)){
-          boroughs.push(job.borough_community);
-        };
-      });
-      this.setState({boroughs: boroughs});
-      this.state.dataJob.map(job=>{
-        boroughs.map(b=>{
-          if(job.borough_community === b){
-            this.setState({
-              b: this.state[b].push(job)
-            });
-          }
-        })
-      })
-    };
-
-  };
   
   dataActivties=()=> {
       fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json`)
@@ -78,9 +51,7 @@ class App extends Component {
   componentDidMount(){
       this.dataJobs();
       this.dataActivties();
-      
   }
-
 
   render() {
     // console.log("NY ", this.state['New York']);
@@ -95,15 +66,23 @@ class App extends Component {
   
       </nav>
           <Switch>
-          <Route exact path="/">
-            <Home props={this.state.dataJob} props={this.state.dataAfter} />
-          </Route>
+          <Route exact path="/" render={props=>(
+                     <Home dataJob={this.state.dataJob} 
+                     dataActivties={this.state.dataAfter} />                     )}/>
+                    )}/>
           <Route exact path="/About-Us" render={""} />
-          <Route path="/Jobs-Internships">
+
+          {/* <Route path="/Jobs-Internships">
             <Jobs bronx={this.state.Bronx} brooklyn={this.state.Brooklyn} queens={this.state.Queens}
             ny={this.state['New York']} manhattan={this.state.Manhattan} />
-          </Route>
-          <Route  path="/AS-Activites" component={""} />
+          </Route> */}
+
+            <Route exact path="/Jobs-Internships" render={props=>(
+                     <Jobs dataJob={this.state.dataJob} 
+                     />                    
+                    )}/>
+          
+          <Route  path="/AS-Activites" component={AfterSchool} />
   
           </Switch>
       </div>

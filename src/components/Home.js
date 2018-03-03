@@ -161,7 +161,7 @@ class Home extends Component {
             return response.json()
         })
         .then(data => {
-            console.log('FETCH Jobs: ', data)
+            // console.log('FETCH Jobs: ', data)
             this.setState({
             dataJob: data
             }) 
@@ -177,7 +177,7 @@ class Home extends Component {
             return response.json()
         })
         .then(data => {
-            console.log('FETCH Activties: ', data)
+            // console.log('FETCH Activties: ', data)
             this.setState({
             dataAfter: data
             }) 

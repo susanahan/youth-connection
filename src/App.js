@@ -1,15 +1,24 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Link, Switch, Route} from 'react-router-dom'
-import Home from './components/Home'
+
+import Home from './components/Home';
+import Jobs from './components/Jobs';
 import AfterSchool from './components/Afterschool'
 
 
 class App extends Component {
-  constructor(){
-    super()
+  constructor(props){
+    super(props)
     this.state = {
       dataJob:[],
-      dataAfter:[]     
+      dataAfter:[],
+      Bronx:[],
+      Brooklyn: [],
+      'New York': [],
+      Manhattan: [],
+      Queens: [],
+      'Staten Island': [],
+      'Long Island  City': []
     }
   }
 
@@ -23,11 +32,33 @@ class App extends Component {
           this.setState({
           dataJob: data
           }) 
+      this.boroughComunity();
       })
       .catch(err => {
           console.log(err)
       })
   }
+  boroughComunity = () =>{
+    let boroughs = [];
+    if(this.state.dataJob.length > 0){
+      this.state.dataJob.forEach(job=>{
+        if(!boroughs.includes(job.borough_community)){
+          boroughs.push(job.borough_community);
+        };
+      });
+      this.setState({boroughs: boroughs});
+      this.state.dataJob.map(job=>{
+        boroughs.map(b=>{
+          if(job.borough_community === b){
+            this.setState({
+              b: this.state[b].push(job)
+            });
+          }
+        })
+      })
+    };
+
+  };
   
   dataActivties=()=> {
       fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json`)
@@ -35,7 +66,7 @@ class App extends Component {
           return response.json()
       })
       .then(data => {
-          console.log('FETCH Activties: ', data)
+          // console.log('FETCH Activties: ', data)
           this.setState({
           dataAfter: data
           }) 
@@ -47,13 +78,15 @@ class App extends Component {
   
 
   componentDidMount(){
-      this.dataJobs()
-      this.dataActivties()
+      this.dataJobs();
+      this.dataActivties();
       
   }
 
 
   render() {
+    // console.log("NY ", this.state['New York']);
+    // console.log('Manhattan ', this.state.Manhattan)
     return (
       <div>
           <nav>
@@ -64,14 +97,16 @@ class App extends Component {
   
       </nav>
           <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/" render={props=>(
-                          <Home dataJob={this.state.dataJob} 
-                                dataActivties={this.state.dataAfter} />
-                     )}/>
+          <Route exact path="/">
+            <Home props={this.state.dataJob} props={this.state.dataAfter} />
+          </Route>
           <Route exact path="/About-Us" render={""} />
-          <Route path="/Jobs-Internships" component={""} />
-          <Route  path="/AS-Activites" component={AfterSchool} />
+
+          <Route path="/Jobs-Internships">
+            <Jobs bronx={this.state.Bronx} brooklyn={this.state.Brooklyn} queens={this.state.Queens}
+            ny={this.state['New York']} manhattan={this.state.Manhattan} />
+          </Route>
+          <Route  path="/AS-Activites" component={""} />
   
           </Switch>
       </div>

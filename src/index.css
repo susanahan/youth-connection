@@ -1,5 +1,16 @@
+@import url('http://weloveiconfonts.com/api/?family=fontawesome');
+
+[class*="fontawesome-"]:before {
+  /* font-family: 'FontAwesome', sans-serif; */
+  content: "\f09b";
+  font-family: 'FontAwesome';
+
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
+
+

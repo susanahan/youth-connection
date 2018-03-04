@@ -167,11 +167,7 @@ class Home extends Component {
 
           <Map onSpotClick={this.onSpotClick} />
         </fieldset>
-        <div style={{ width: "50%", height: "400px" }}>
-          <SimpleMap />
-          <Map />
-        </div>
-      </div>
+             </div>
     );
   }
 }

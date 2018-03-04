@@ -1,4 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Sree+Krushnadevaraya');
+@import url('http://weloveiconfonts.com/api/?family=fontawesome|Sree+Krushnadevaraya');
+
+[class*="fontawesome-"]:before {
+  /* font-family: 'FontAwesome', sans-serif; */
+  content: "\f09b";
+  font-family: 'FontAwesome';
+
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -20,6 +28,78 @@ body {
   border-bottom:5px solid black;
 }
 
+.map-container {
+  height: 280px;
+  width: 415px;
+  padding: 10px;
+  margin-left: 320px;
+  position: center;
+  text-align: center;
+}
+
+.fieldset {
+  padding: 1em;
+  border: 1px solid gray;
+  height: 440px;
+  
+}
+.legend {
+  font-weight: bold;
+  text-align: left;
+}
+
+.HolyGrail {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.HolyGrail-body {
+  display: flex;
+  flex: 2;
+}
+
+.HolyGrail-content {
+  flex: 1;
+}
+
+.HolyGrail-nav {
+  /* 12em is the width of the columns */
+  flex: 0 0 18em;
+  background-color:gray;
+  opacity: .9;
+}
+
+.HolyGrail-nav {
+  /* put the nav on the left */
+  order: -1;
+  position: absolute;
+  top:50px;
+}
+
+.HolyGrail-nav ul {
+  /* put the nav on the left */
+display:flex;
+flex-direction: column;
+
+}
+
+.menu-icon{
+  height:50px ;
+  width:50px;
+  background-color:blue;
+}
+
+ul{
+  list-style-type: none;
+  line-height: 1.8;
+}
+
+li{
+  font-size:20px;
+  line-height: 1.6;
+  
+}
 .container > div{
   border: 2px solid #424242;
   /* border-bottom: 2px solid #424242; */

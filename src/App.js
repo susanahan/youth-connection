@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Link, Switch, Route} from 'react-router-dom'
+import { Link, Switch, Route} from 'react-router-dom'
+
 import Home from './components/Home';
 import Jobs from './components/Jobs';
-import Search from "./components/Search";
-import AfterSchool from "./components/Afterschool";
+import AfterSchool from './components/Afterschool';
+import Map from './components/Map';
+import Search from "./components/Search"
 
 
 class App extends Component {
@@ -12,13 +14,7 @@ class App extends Component {
     this.state = {
       dataJob:[],
       dataAfter:[],
-      Bronx:[],
-      Brooklyn: [],
-      'New York': [],
-      Manhattan: [],
-      Queens: [],
-      'Staten Island': [],
-      'Long Island  City': [],
+      nav:'',
       searchVal: ''
     }
   }
@@ -29,37 +25,15 @@ class App extends Component {
           return response.json()
       })
       .then(data => {
-          console.log('FETCH Jobs: ', data)
+        //   console.log('FETCH Jobs: ', data)
           this.setState({
           dataJob: data
           }) 
-      this.boroughComunity();
       })
       .catch(err => {
           console.log(err)
       })
   }
-  boroughComunity = () =>{
-    let boroughs = [];
-    if(this.state.dataJob.length > 0){
-      this.state.dataJob.forEach(job=>{
-        if(!boroughs.includes(job.borough_community)){
-          boroughs.push(job.borough_community);
-        };
-      });
-      this.setState({boroughs: boroughs});
-      this.state.dataJob.map(job=>{
-        boroughs.map(b=>{
-          if(job.borough_community === b){
-            this.setState({
-              b: this.state[b].push(job)
-            });
-          }
-        })
-      })
-    };
-
-  };
   
   dataActivties=()=> {
       fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json`)
@@ -80,17 +54,25 @@ class App extends Component {
   componentDidMount(){
       this.dataJobs();
       this.dataActivties();
-      
   }
 
-  handleText = (e) => {
-    this.setState({searchVal:e.target.value})
-  }
-
-  renderHome = ({history}) => {
-    const { dataJob, dataAfter,searchVal } = this.state
-    return <Home props={this.state.dataJob} props={this.state.dataAfter} history={history} handleText={this.handleText} />
-  }
+renderNav=()=>{
+    if (this.state.nav === ''){
+        this.setState({
+            nav: <nav className="HolyGrail-nav">
+                  <ul>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/"> Home </Link>   </li>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/About-Us"> About Us </Link> </li>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/Jobs-Internships"> Jobs & Internships </Link> </li>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/AS-Activites"> After School Activites </Link> </li>
+      </ul> </nav>
+        })
+    }else{
+        this.setState({
+            nav: ''
+        })
+    }
+}
 
   handleSearch = ({match}) => {
     const { dataJob, searchVal } = this.state
@@ -101,25 +83,33 @@ class App extends Component {
   return <Jobs bronx={this.state.Bronx} brooklyn={this.state.Brooklyn} queens={this.state.Queens}
   ny={this.state['New York']} manhattan={this.state.Manhattan} />
   }
+
+  handleText = (e) => {
+    this.setState({searchVal:e.target.value})
+  }
+
+  renderHome = ({history}) => {
+    const { dataJob, dataAfter,searchVal } = this.state
+    return <Home props={this.state.dataJob} props={this.state.dataAfter} history={history} handleText={this.handleText} />
+  }
  
   render() {
     return (
-      <div>
-          <nav>
-            
-          <Link to="/"> Home </Link>|
-          <Link to="/About-Us"> About Us </Link>|
-          <Link to="/Jobs-Internships"> Jobs & Internships </Link> |
-          <Link to="/AS-Activites"> After School Activites </Link> 
-  
-      </nav>
+      <div className="HolyGrail-body">
+          <div onClick={this.renderNav} className="menu-icon">
+          </div>
+          {this.state.nav}        
+
+    
           <Switch>
-          <Route exact path="/" render={this.renderHome}>
-          </Route>
-          {/* <Route exact path="/About-Us" render={""} /> */}
+    
+         <Route exact path="/" component={Home} />
+         <Route  path="/About-Us" render={""} />
+         <Route  path="/Jobs-Internships" render={props=>(
+                     <Jobs dataJob={this.state.dataJob} 
+                     />                    
+                    )}/>
           <Route path="/search/:name" render={this.handleSearch}/>
-          <Route path="/Jobs-Internships" render={this.handleJobs}>
-          </Route>
           <Route  path="/AS-Activites" component={AfterSchool} />
   
           </Switch>

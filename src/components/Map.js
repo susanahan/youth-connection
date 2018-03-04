@@ -5,6 +5,55 @@ const YOUR_KEY = 'AIzaSyAw18hOsPcRzhnr-O_SuP2XEedQizSUQDI'
 const K_WIDTH = 25;
 const K_HEIGHT = 20;
 
+const iconImageM = {
+    position: 'absolute',
+    width: K_WIDTH,
+    height: K_HEIGHT,
+    left: -K_WIDTH / 2,
+    top: -K_HEIGHT / 2,
+    border: '1px solid #f44336',
+    borderRadius: K_HEIGHT,
+    backgroundColor: 'white',
+    textAlign: 'center',
+    color: '#3f51b5',
+    fontSize: 15,
+    fontWeight: 'bold',
+    padding: 4
+  };
+
+const iconImageXS = {
+    position: 'absolute',
+    width: K_WIDTH,
+    height: K_HEIGHT,
+    left: -K_WIDTH / 2,
+    top: -K_HEIGHT / 2,
+    border: '1px solid #f44336',
+    borderRadius: K_HEIGHT,
+    backgroundColor: 'white',
+    textAlign: 'center',
+    color: '#3f51b5',
+    fontSize: 5,
+    fontWeight: 'bold',
+    padding: 4
+  };
+
+  const iconImageS = {
+    position: 'absolute',
+    width: K_WIDTH,
+    height: K_HEIGHT,
+    left: -K_WIDTH / 2,
+    top: -K_HEIGHT / 2,
+    border: '1px solid #f44336',
+    borderRadius: K_HEIGHT,
+    backgroundColor: 'white',
+    textAlign: 'center',
+    color: '#3f51b5',
+    fontSize: 10,
+    fontWeight: 'bold',
+    padding: 4
+  };
+
+
 const greatPlaceStyle = {
   position: 'absolute',
   width: K_WIDTH,
@@ -12,7 +61,7 @@ const greatPlaceStyle = {
   left: -K_WIDTH / 2,
   top: -K_HEIGHT / 2,
 
-  border: '2px solid #f44336',
+  border: '1px solid #f44336',
   borderRadius: K_HEIGHT,
   backgroundColor: 'white',
   textAlign: 'center',
@@ -24,18 +73,15 @@ const greatPlaceStyle = {
 
 const ASMarker = () =>{
     return( 
-    <div style={greatPlaceStyle}>
-     <i className='fas fa-star'>  </i>
-     </div>
+     <i style={greatPlaceStyle} className='fab fa-earlybirds'>  </i>
     )
  }
 
 
 const JobsMarker = () =>{
     return( 
-    <div style={greatPlaceStyle}>
-     <i className='far fa-money-bill-alt'>  </i>
-     </div>
+     <i style={greatPlaceStyle} className='far fa-money-bill-alt'>  </i>
+
     )
  }
 
@@ -49,7 +95,7 @@ class Map extends React.Component {
     mapOptions: defaultOptions,
     locateJobs: [],
     locateActs: [],
-    selectedRatId: null
+    selectedSpotId: null
   };
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -68,10 +114,8 @@ dataJobs=()=> {
     })
     .then(data => {
         this.setState({
-            locateJobs: data.filter(rat => rat.latitude && rat.longitude)
-            // location1: data.filter(el => el.latitude && el.longitude)
+            locateJobs: data.filter(point => point.latitude && point.longitude)
             }) 
-        console.log('FILTERED! Jobs: ', this.state.locateJobs)
     })
     .catch(err => {
         console.log(err)
@@ -85,13 +129,13 @@ dataActivties=()=> {
         return response.json()
     })
     .then(data => {
+        let map1 = data.map(x => x.location_1);
+        console.log('WHAT IS DATA: ', map1)
+        
         this.setState({
-            locateActs: data.filter(rat => rat.latitude && rat.longitude)
+            locateActs: map1.filter(point => point.latitude && point.longitude)
             
-            // locateActs: data.map(el => { 
-            //     return {latitude: el.latitude, 
-            //             longitude:el.longitude}
-            //         })
+        
             }) 
         console.log('FILTERED! Acts: ', this.state.locateActs)
             
@@ -108,19 +152,20 @@ dataActivties=()=> {
     });
   };
 
-  onRatClick = rat => {
-    console.log("clicked on: ", rat);
-    this.props.onRatClick(rat);
-    this.setState({ selectedRatId: rat.unique_key });
+  onSpotClick = spot => {
+    console.log("clicked on: ", spot);
+    this.props.onSpotClick(spot);
+    this.setState({ selectedSpotId: spot.unique_key });
   };
 
   render() {
-    const { locateJobs, locateActs, mapOptions, selectedRatId } = this.state;
-    // const { zoom } = mapOptions;
+    const { locateJobs, locateActs, mapOptions, selectedSpotId } = this.state;
+    const { zoom } = mapOptions;
 
-    // const image = zoom >= 16 ? ratImageM : zoom >= 14 ? ratImageS : ratImageXS;
+    const image = zoom >= 16 ? iconImageM : zoom >= 14 ? iconImageS : iconImageXS;
 
     return (
+        
       <GoogleMapReact
         bootstrapURLKeys={{ key: [YOUR_KEY] }}
         options={this.createMapOptions}
@@ -128,20 +173,20 @@ dataActivties=()=> {
         {...defaultOptions}
         {...mapOptions}
       >
-        {locateJobs.map(rat => (
+        {locateJobs.map(point => (
           <JobsMarker
-            locateJobs={rat}
-            selected={rat.unique_key === selectedRatId}
-            lat={rat.latitude}
-            lng={rat.longitude}
+            locateJobs={point}
+            selected={point.unique_key === selectedSpotId}
+            lat={point.latitude}
+            lng={point.longitude}
           />
         ))}
-          {locateActs.map(rat => (
+          {locateActs.map(point => (
           <ASMarker
-            locateActs={rat}
-            selected={rat.unique_key === selectedRatId}
-            lat={rat.latitude}
-            lng={rat.longitude}
+            locateActs={point}
+            selected={point.unique_key === selectedSpotId}
+            lat={point.latitude}
+            lng={point.longitude}
           />
         ))}
       </GoogleMapReact>

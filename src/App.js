@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, Switch, Route} from 'react-router-dom'
-
+import About from './components/AboutUs'
 import Home from './components/Home';
 import Jobs from './components/Jobs';
 import AfterSchool from './components/Afterschool'
@@ -61,9 +61,9 @@ renderNav=()=>{
             nav: <nav className="HolyGrail-nav">
                   <ul>
         <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/"> Home </Link>   </li>
-        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/About-Us"> About Us </Link> </li>
         <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/Jobs-Internships"> Jobs & Internships </Link> </li>
         <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/AS-Activites"> After School Activites </Link> </li>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/About-Us"> About Us </Link> </li>
       </ul> </nav>
         })
     }else{
@@ -76,15 +76,18 @@ renderNav=()=>{
   render() {
     return (
       <div className="HolyGrail-body">
-          <div onClick={this.renderNav} className="menu-icon">
-          </div>
-          {this.state.nav}        
-
-    
+          {/* <div className="menu-icon">
+          </div> */}
+<nav className="HolyGrail-nav">
+                  <ul>
+        <li className='fas fa-home'><Link style={{paddingLeft: 2, textDecoration: 'none'}} to="/"> Home </Link> </li>| {" "} 
+        <li className='fas fa-dollar-sign'><Link style={{paddingLeft: 2, textDecoration: 'none'}} to="/Jobs-Internships"> Jobs & Internships </Link> </li> |{" "} 
+        <li className='fas fa-puzzle-piece'><Link style={{paddingLeft: 2, textDecoration: 'none'}} to="/AS-Activites"> After School Activites </Link> </li>|{" "}
+        <li className='fas fa-users'><Link style={{paddingLeft: 2, textDecoration: 'none'}} to="/About-Us"> About Us </Link> </li>
+      </ul> </nav>
           <Switch>
-    
          <Route exact path="/" component={Home} />
-         <Route  path="/About-Us" render={""} />
+         <Route  path="/About-us" render={About} />
          <Route  path="/Jobs-Internships" render={props=>(
                      <Jobs dataJob={this.state.dataJob} 
                      />                    

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 // import { Link, Switch, Route} from 'react-router-dom'
 // import { GoogleMap } from "react-google-maps"
 import Map from './Map'
+
 import GoogleMapReact from 'google-map-react';
 
     
@@ -65,14 +66,16 @@ class Home extends Component {
     render() {
 
         return (
-        <div>
+        <div>  
+            <div className='hey'> 
+
             <fieldset className='map-container'>
             <legend>Map</legend>
 
              <Map onSpotClick={this.onSpotClick} />
             </fieldset>
         </div>
-        
+        </div>
         );
       }
     }

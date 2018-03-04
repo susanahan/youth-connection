@@ -3,6 +3,7 @@ import {BrowserRouter, Link, Switch, Route} from 'react-router-dom'
 import Home from './components/Home';
 import Jobs from './components/Jobs';
 import Search from "./components/Search";
+import AfterSchool from "./components/Afterschool";
 
 
 class App extends Component {
@@ -92,7 +93,7 @@ class App extends Component {
   }
 
   handleSearch = () => {
-    const {dataJob, searchVal} = this.state
+    const { dataJob, searchVal } = this.state
    return <Search infoArr={dataJob} text={searchVal} />
   }
 
@@ -108,7 +109,7 @@ class App extends Component {
             
           <Link to="/"> Home </Link>|
           <Link to="/About-Us"> About Us </Link>|
-          <Link to="/Jobs-Internships"> Jobs& Internships </Link> |
+          <Link to="/Jobs-Internships"> Jobs & Internships </Link> |
           <Link to="/AS-Activites"> After School Activites </Link> 
   
       </nav>
@@ -119,7 +120,7 @@ class App extends Component {
           <Route path="/search" render={this.handleSearch}/>
           <Route path="/Jobs-Internships" render={this.handleJobs}>
           </Route>
-          {/* <Route  path="/AS-Activites" component={""} /> */}
+          <Route  path="/AS-Activites" component={AfterSchool} />
   
           </Switch>
       </div>

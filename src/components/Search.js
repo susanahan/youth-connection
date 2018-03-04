@@ -1,23 +1,48 @@
 import React from "react";
 
-class SearchBox extends React.Component{
-    constructor(props){
-        super(props)
-    }
+class SearchBox extends React.Component {
+  constructor(props) {
+    super(props);
 
-    handleSearch = ( props ) => {
-        const { infoArr, text } = this.props
-        return this.props.infoArr.filter(elem => elem.program.includes(text))
-    }
+    this.state = {
+      filterArr: []
+    };
+  }
 
-    render(){
-        const filterArr = this.handleSearch()
-        return(
-            <div>
-                {console.log('search engine',this.handleSearch('Summer Youth Employment '))}
-            </div>
-        )
-    }
+  Search = props => {
+    const { infoArr, text } = this.props;
+    console.log('search text', text)
+    const newArr = this.props.infoArr.filter(elem =>
+      elem.program.includes(text)
+    );
+    this.setState({
+      filterArr: newArr
+    });
+  };
+  componentDidMount() {
+    this.Search();
+  }
+
+  render() {
+    const { filterArr } = this.state;
+    return (
+      <div>
+        {filterArr.map(el => (
+          <div>
+            <p>
+              {" "}
+              {`Agency: ${el.agency}`} <br />
+              {`Borough community: ${el.borough_community}`} <br />
+              {`Contact Number: ${el.contact_number}`} <br />
+              {`Program: ${el.program}`} <br />
+              {`Program Type: ${el.program_type}`} <br />
+              {`Site name: ${el.site_name}`} <br />
+            </p>
+          </div>
+        ))}
+      </div>
+    );
+  }
 }
 
 export default SearchBox;

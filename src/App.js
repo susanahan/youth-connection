@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {BrowserRouter, Link, Switch, Route} from 'react-router-dom'
 import Home from './components/Home';
 import Jobs from './components/Jobs';
+import Search from "./components/Search";
 
 
 class App extends Component {
@@ -16,7 +17,8 @@ class App extends Component {
       Manhattan: [],
       Queens: [],
       'Staten Island': [],
-      'Long Island  City': []
+      'Long Island  City': [],
+      searchVal: ''
     }
   }
 
@@ -64,7 +66,6 @@ class App extends Component {
           return response.json()
       })
       .then(data => {
-          // console.log('FETCH Activties: ', data)
           this.setState({
           dataAfter: data
           }) 
@@ -81,29 +82,44 @@ class App extends Component {
       
   }
 
+  handleText = (e) => {
+    this.setState({searchVal:e.target.value})
+  }
 
+  renderHome = ({history}) => {
+    const { dataJob, dataAfter,searchVal } = this.state
+    return <Home props={this.state.dataJob} props={this.state.dataAfter} history={history} handleText={this.handleText} />
+  }
+
+  handleSearch = () => {
+    const {dataJob, searchVal} = this.state
+   return <Search infoArr={dataJob} text={searchVal} />
+  }
+
+  handleJobs = () => {
+  return <Jobs bronx={this.state.Bronx} brooklyn={this.state.Brooklyn} queens={this.state.Queens}
+  ny={this.state['New York']} manhattan={this.state.Manhattan} />
+  }
+ 
   render() {
-    // console.log("NY ", this.state['New York']);
-    // console.log('Manhattan ', this.state.Manhattan)
     return (
       <div>
           <nav>
             
+          <Link to="/"> Home </Link>|
           <Link to="/About-Us"> About Us </Link>|
           <Link to="/Jobs-Internships"> Jobs& Internships </Link> |
-          <Link to="/AS-Activites"> After School Activites </Link> |
+          <Link to="/AS-Activites"> After School Activites </Link> 
   
       </nav>
           <Switch>
-          <Route exact path="/">
-            <Home props={this.state.dataJob} props={this.state.dataAfter} />
+          <Route exact path="/" render={this.renderHome}>
           </Route>
-          <Route exact path="/About-Us" render={""} />
-          <Route path="/Jobs-Internships">
-            <Jobs bronx={this.state.Bronx} brooklyn={this.state.Brooklyn} queens={this.state.Queens}
-            ny={this.state['New York']} manhattan={this.state.Manhattan} />
+          {/* <Route exact path="/About-Us" render={""} /> */}
+          <Route path="/search" render={this.handleSearch}/>
+          <Route path="/Jobs-Internships" render={this.handleJobs}>
           </Route>
-          <Route  path="/AS-Activites" component={""} />
+          {/* <Route  path="/AS-Activites" component={""} /> */}
   
           </Switch>
       </div>

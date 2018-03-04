@@ -92,9 +92,9 @@ class App extends Component {
     return <Home props={this.state.dataJob} props={this.state.dataAfter} history={history} handleText={this.handleText} />
   }
 
-  handleSearch = () => {
+  handleSearch = ({match}) => {
     const { dataJob, searchVal } = this.state
-   return <Search infoArr={dataJob} text={searchVal} />
+   return <Search infoArr={dataJob} match={match}/>
   }
 
   handleJobs = () => {
@@ -117,7 +117,7 @@ class App extends Component {
           <Route exact path="/" render={this.renderHome}>
           </Route>
           {/* <Route exact path="/About-Us" render={""} /> */}
-          <Route path="/search" render={this.handleSearch}/>
+          <Route path="/search/:name" render={this.handleSearch}/>
           <Route path="/Jobs-Internships" render={this.handleJobs}>
           </Route>
           <Route  path="/AS-Activites" component={AfterSchool} />

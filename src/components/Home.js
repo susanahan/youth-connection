@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import {BrowserRouter, Link, Switch, Route} from 'react-router-dom'
 import Search from "./Search"
-
-import React, { Component } from 'react';
 // import { Link, Switch, Route} from 'react-router-dom'
 // import { GoogleMap } from "react-google-maps"
 import Map from './Map'
@@ -95,7 +93,8 @@ class Home extends Component {
         dataAfter:[],
         locations1:[],
         locations2:[],
-        selectedSpot: null   
+        selectedSpot: null,
+        searchVal:''     
       }
     }
 
@@ -152,78 +151,6 @@ class Home extends Component {
         this.dataJobs();
         this.dataActivties();
     }
-
-    render() {
-       
-        return (
-          <div>
-            <h1>Welcome to Home</h1>
-            {/* <Map onClick={this.onSpotClick} /> */}
-            {/* <MapWithAMarker
-    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
-    loadingElement={<div style={{ height: `100%` }} />}
-    containerElement={<div style={{ height: `400px` }} />}
-    mapElement={<div style={{ height: `100%` }} />}
-  /> */}
-
-<div style={{width: '50%', height: '400px'}}>
-    <SimpleMap/>
-    <Map />
-  </div>
-          </div>
-        );
-      }
-    }
-    
-
-export default Home;
-class Home extends Component {
-    constructor(props){
-      super(props)
-      this.state = {
-        dataJob:[],
-        dataAfter:[],
-        searchVal:''     
-      }
-    }
-
-    dataJobs=()=> {
-        fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json`)
-                .then(response=>{
-            return response.json()
-        })
-        .then(data => {
-            // console.log('FETCH Jobs: ', data)
-            this.setState({
-            dataJob: data
-            }) 
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
-    
-    dataActivties=()=> {
-        fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json`)
-        .then(response=>{
-            return response.json()
-        })
-        .then(data => {
-            // console.log('FETCH Activties: ', data)
-            this.setState({
-            dataAfter: data
-            }) 
-        })
-        .catch(err => {
-            console.log(err)
-        })
-    }
-
-    componentDidMount(){
-        this.dataJobs()
-        this.dataActivties()
-        
-    }
     handleText = (e) => {
         this.setState({searchVal:e.target.value})
     }
@@ -238,8 +165,8 @@ class Home extends Component {
         const { searchVal } = this.state
         return (
           <div>
-              <h1>Welcome to Home</h1>
-              <form onSubmit={this.handleEnter}>
+            <h1>Welcome to Home</h1>
+            <form onSubmit={this.handleEnter}>
                   <input 
                   type="text"
                   value={searchVal}
@@ -247,11 +174,99 @@ class Home extends Component {
                   onInput = {this.handleText}
                   />
             </form>
-     
+            {/* <Map onClick={this.onSpotClick} /> */}
+            {/* <MapWithAMarker
+    googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyC4R6AN7SmujjPUIGKdyao2Kqitzr1kiRg&v=3.exp&libraries=geometry,drawing,places"
+    loadingElement={<div style={{ height: `100%` }} />}
+    containerElement={<div style={{ height: `400px` }} />}
+    mapElement={<div style={{ height: `100%` }} />}
+  /> */}
+  <div style={{width: '50%', height: '400px'}}>
+    <SimpleMap/>
+    <Map />
+  </div>
           </div>
         );
       }
     }
+    
+
+// export default Home;
+// class Home extends Component {
+//     constructor(props){
+//       super(props)
+//       this.state = {
+//         dataJob:[],
+//         dataAfter:[],
+//         searchVal:''     
+//       }
+//     }
+
+//     dataJobs=()=> {
+//         fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json`)
+//                 .then(response=>{
+//             return response.json()
+//         })
+//         .then(data => {
+//             // console.log('FETCH Jobs: ', data)
+//             this.setState({
+//             dataJob: data
+//             }) 
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+//     }
+    
+//     dataActivties=()=> {
+//         fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json`)
+//         .then(response=>{
+//             return response.json()
+//         })
+//         .then(data => {
+//             // console.log('FETCH Activties: ', data)
+//             this.setState({
+//             dataAfter: data
+//             }) 
+//         })
+//         .catch(err => {
+//             console.log(err)
+//         })
+//     }
+
+//     componentDidMount(){
+//         this.dataJobs()
+//         this.dataActivties()
+        
+//     }
+//     handleText = (e) => {
+//         this.setState({searchVal:e.target.value})
+//     }
+
+//     handleEnter = (e) => {
+//         e.preventDefault()
+//         const { searchVal } = this.state
+//             this.props.history.push(`/search/${searchVal}`)
+//      }
+
+//     render() {
+//         const { searchVal } = this.state
+//         return (
+//           <div>
+//               <h1>Welcome to Home</h1>
+//               <form onSubmit={this.handleEnter}>
+//                   <input 
+//                   type="text"
+//                   value={searchVal}
+//                   placeholder="program name"
+//                   onInput = {this.handleText}
+//                   />
+//             </form>
+     
+//           </div>
+//         );
+//       }
+//     }
     
 export default Home;
     

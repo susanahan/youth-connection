@@ -9,12 +9,16 @@ class SearchBox extends React.Component {
     };
   }
 
-  Search = props => {
-    const { infoArr, text } = this.props;
+  Search = () => {
+    const { infoArr, match } = this.props;
+    console.log('current props',this.props)
+    const text = match.params.name 
     console.log('search text', text)
-    const newArr = this.props.infoArr.filter(elem =>
+    const newArr = infoArr.filter(elem =>
       elem.program.includes(text)
     );
+    console.log('oldArr', infoArr)
+    console.log('newArr',newArr)
     this.setState({
       filterArr: newArr
     });
@@ -26,9 +30,9 @@ class SearchBox extends React.Component {
   render() {
     const { filterArr } = this.state;
     return (
-      <div>
+      <div className = "wrapper">
         {filterArr.map(el => (
-          <div>
+          <div className ="search">
             <p>
               {" "}
               {`Agency: ${el.agency}`} <br />

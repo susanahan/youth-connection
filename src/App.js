@@ -5,7 +5,10 @@ import Home from './components/Home';
 import Jobs from './components/Jobs';
 import AfterSchool from './components/Afterschool';
 import Map from './components/Map';
-import Search from "./components/Search"
+import Search from "./components/Search";
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin()
+
 
 
 class App extends Component {

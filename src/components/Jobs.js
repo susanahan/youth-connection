@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Layout from "./jobLayout";
+import injectTapEventPlugin from 'react-tap-event-plugin';
+
 const Info = ({ dataArr }) => {
     return (
         <div>

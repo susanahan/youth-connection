@@ -15,7 +15,7 @@ class SearchBox extends React.Component {
     const text = match.params.name 
     console.log('search text', text)
     const newArr = infoArr.filter(elem =>
-      elem.program.includes(text)
+      elem.program.includes(text) || elem.borough_community.includes(text)
     );
     console.log('oldArr', infoArr)
     console.log('newArr',newArr)

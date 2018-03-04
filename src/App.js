@@ -93,10 +93,14 @@ renderNav=()=>{
     return <Home props={this.state.dataJob} props={this.state.dataAfter} history={history} handleText={this.handleText} />
   }
  
+  // handlePopup = () => {
+
+  // }
   render() {
     return (
       <div className="HolyGrail-body">
           <div onClick={this.renderNav} className="menu-icon">
+          <i class="fas fa-thumbtack"></i>
           </div>
           {this.state.nav}        
 

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import Layout from "./jobLayout";
 const Info = ({ dataArr }) => {
     return (
         <div>
@@ -22,12 +22,13 @@ class Jobs extends Component {
     constructor(props){
         super(props)
         this.state = {
-          dataJobs:[]
+          dataJobs:[],
+          page: 0
                 }
       }
 
       dataJobs=()=> {
-        fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$limit=19`)
+        fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$limit=16&$offset=${this.state.page * 16}`)
                 .then(response=>{
             return response.json()
         })
@@ -40,6 +41,14 @@ class Jobs extends Component {
         .catch(err => {
             console.log(err)
         })
+    }
+
+    handleNext = () => {
+        this.setState({
+            page: this.state.page + 1
+        })
+
+        this.dataJobs()
     }
       
 
@@ -65,10 +74,9 @@ render() {
     console.log('dataJobs' , dataJobs )
     console.log('YO THIS BRONX ' ,this.filterBorough('bronx'))
     return(
-        <div >
-            <h1>Jobs</h1>
-            <Info dataArr={this.state.dataJobs} />
-            
+        <div outside outline>
+            <Layout dataArr={this.state.dataJobs} />
+            <span onClick={this.handleNext}>next</span>
         </div>
     )
     }

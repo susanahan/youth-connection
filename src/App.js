@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Link, Switch, Route} from 'react-router-dom'
+import { Link, Switch, Route} from 'react-router-dom'
 
 import Home from './components/Home';
 import Jobs from './components/Jobs';
 import AfterSchool from './components/Afterschool'
+import Map from './components/Map'
 
 
 class App extends Component {
@@ -21,7 +22,7 @@ class App extends Component {
           return response.json()
       })
       .then(data => {
-          console.log('FETCH Jobs: ', data)
+        //   console.log('FETCH Jobs: ', data)
           this.setState({
           dataJob: data
           }) 
@@ -66,10 +67,12 @@ class App extends Component {
   
       </nav>
           <Switch>
-          <Route exact path="/" render={props=>(
+          {/* <Route exact path="/" render={props=>(
                      <Home dataJob={this.state.dataJob} 
                      dataActivties={this.state.dataAfter} />                     )}/>
-                    )}/>
+                    )}/> */}
+         <Route exact path="/Home" component={Map} />
+
           <Route exact path="/About-Us" render={""} />
 
           {/* <Route path="/Jobs-Internships">
@@ -85,6 +88,11 @@ class App extends Component {
           <Route  path="/AS-Activites" component={AfterSchool} />
   
           </Switch>
+
+          <div style={{width: '80%', height: '300px'}}>
+          <Map onRatClick={this.onRatClick} />
+        </div>
+
       </div>
     );
   }

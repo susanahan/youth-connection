@@ -1,17 +1,5 @@
 import React, { Component } from 'react';
 
-// const ASinfo = data => {
-//     // const formattedDate = formatDate(date);
-  
-//     return (
-//       <div>
-//           {data.map(data => x * 2)}
-//         {/* Spotted on: {formattedDate} <br />
-//         Location type: {rat.location_type} <br />
-//         Address: {rat.incident_address} */}
-//       </div>
-//     );
-//   };
 
   const Info = ({ dataArr }) => {
     return (

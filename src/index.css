@@ -14,10 +14,78 @@ body {
   display: grid;
 }
 
-/* *{
-  box-sizing: border-box
-} */
+.map-container {
+  height: 280px;
+  width: 415px;
+  padding: 10px;
+  margin-left: 320px;
+  position: center;
+  text-align: center;
+}
 
+.fieldset {
+  padding: 1em;
+  border: 1px solid gray;
+  height: 440px;
+  
+}
+.legend {
+  font-weight: bold;
+  text-align: left;
+}
+
+.HolyGrail {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.HolyGrail-body {
+  display: flex;
+  flex: 2;
+}
+
+.HolyGrail-content {
+  flex: 1;
+}
+
+.HolyGrail-nav {
+  /* 12em is the width of the columns */
+  flex: 0 0 18em;
+  background-color:gray;
+  opacity: .9;
+}
+
+.HolyGrail-nav {
+  /* put the nav on the left */
+  order: -1;
+  position: absolute;
+  top:50px;
+}
+
+.HolyGrail-nav ul {
+  /* put the nav on the left */
+display:flex;
+flex-direction: column;
+
+}
+
+.menu-icon{
+  height:50px ;
+  width:50px;
+  background-color:blue;
+}
+
+ul{
+  list-style-type: none;
+  line-height: 1.8;
+}
+
+li{
+  font-size:20px;
+  line-height: 1.6;
+  
+}
 .container > div{
   border: 2px solid rgb(233,171,88);
   /* border-radius: 5px; */

@@ -12,7 +12,8 @@ class App extends Component {
     super(props)
     this.state = {
       dataJob:[],
-      dataAfter:[]
+      dataAfter:[],
+      nav:''
     }
   }
 
@@ -54,33 +55,37 @@ class App extends Component {
       this.dataActivties();
   }
 
+renderNav=()=>{
+    if (this.state.nav === ''){
+        this.setState({
+            nav: <nav className="HolyGrail-nav">
+                  <ul>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/"> Home </Link>   </li>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/About-Us"> About Us </Link> </li>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/Jobs-Internships"> Jobs & Internships </Link> </li>
+        <li className='fas fa-arrow-circle-right'><Link style={{paddingLeft: 3, textDecoration: 'none'}} to="/AS-Activites"> After School Activites </Link> </li>
+      </ul> </nav>
+        })
+    }else{
+        this.setState({
+            nav: ''
+        })
+    }
+}
+
   render() {
-    // console.log("NY ", this.state['New York']);
-    // console.log('Manhattan ', this.state.Manhattan)
     return (
-      <div>
-          <nav>
-            
-          <Link to="/About-Us"> About Us </Link>|
-          <Link to="/Jobs-Internships"> Jobs& Internships </Link> |
-          <Link to="/AS-Activites"> After School Activites </Link> |
-  
-      </nav>
+      <div className="HolyGrail-body">
+          <div onClick={this.renderNav} className="menu-icon">
+          </div>
+          {this.state.nav}        
+
+    
           <Switch>
-          {/* <Route exact path="/" render={props=>(
-                     <Home dataJob={this.state.dataJob} 
-                     dataActivties={this.state.dataAfter} />                     )}/>
-                    )}/> */}
-         <Route exact path="/Home" component={Map} />
-
-          <Route exact path="/About-Us" render={""} />
-
-          {/* <Route path="/Jobs-Internships">
-            <Jobs bronx={this.state.Bronx} brooklyn={this.state.Brooklyn} queens={this.state.Queens}
-            ny={this.state['New York']} manhattan={this.state.Manhattan} />
-          </Route> */}
-
-            <Route exact path="/Jobs-Internships" render={props=>(
+    
+         <Route exact path="/" component={Home} />
+         <Route  path="/About-Us" render={""} />
+         <Route  path="/Jobs-Internships" render={props=>(
                      <Jobs dataJob={this.state.dataJob} 
                      />                    
                     )}/>
@@ -88,11 +93,6 @@ class App extends Component {
           <Route  path="/AS-Activites" component={AfterSchool} />
   
           </Switch>
-
-          <div style={{width: '80%', height: '300px'}}>
-          <Map onRatClick={this.onRatClick} />
-        </div>
-
       </div>
     );
   }

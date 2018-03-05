@@ -1,151 +1,86 @@
 import React, { Component } from 'react';
+import Layout from "./jobLayout";
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
-// const Jobs = ({bronx, ny, brooklyn, queens, manhattan}) =>{
+const Info = ({ dataArr }) => {
+    return (
+        <div>
+            {dataArr.map((el) => {
+                return <p> {`Agency: ${el.agency}`} <br></ br>
+                           {`Address: ${el.address}`} <br></ br>
+                           {`Borough community: ${el.borough_community}`} <br></ br>
+                           {`Contact Number: ${el.contact_number}`} <br></ br>
+                           {`Program: ${el.program}`} <br></ br>
+                           {`Program Type: ${el.program_type}`} <br></ br>
+                           {`Site name: ${el.site_name}`} <br></ br>
+                        </p>
+                })}
+        </div>
+    )
+};
+
+
 class Jobs extends Component {
     constructor(props){
         super(props)
         this.state = {
-          Bronx:[],
-          Brooklyn: [],
-          'New York': [],
-          Manhattan: [],
-          Queens: [],
-          'Staten Island': [],
-          'Long Island  City': []
+          dataJobs:[],
+          page: 0
         }
       }
 
       dataJobs=()=> {
-        fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$limit=19`)
-                .then(response=>{
+        fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$limit=16&$offset=${this.state.page * 16}`)
+        .then(response=>{
             return response.json()
         })
         .then(data => {
             console.log('JOHN FETCH Jobs: ', data)
             this.setState({
-            dataJob: data
+                dataJobs: data,
             }) 
-        this.boroughComunity();
         })
         .catch(err => {
             console.log(err)
         })
     }
       
-      boroughComunity = () =>{
-        let boroughs = [];
-        if(this.state.dataJob.length > 0){
-          this.state.dataJob.forEach(job=>{
-            if(!boroughs.includes(job.borough_community)){
-              boroughs.push(job.borough_community);
-            };
-          });
-          this.setState({boroughs: boroughs});
-          this.state.dataJob.map(job=>{
-            boroughs.map(b=>{
-              if(job.borough_community === b){
-                this.setState({
-                  b: this.state[b].push(job)
-                });
-              }
-            })
-          })
-        };
-    
-      };
+    handleNext = () => {
+        this.setState({
+            page: this.state.page + 1
+        })
+
+        this.dataJobs()
+    }
+      
+
+  filterBorough=(placeholder)=>{
+      let {dataJobs} = this.state
+        let obj = {
+            queens: dataJobs.filter(point => point.borough_community === 'Queens' && 'Long Island  City'),
+            manhattan: dataJobs.filter(point => point.borough_community === 'Manhattan' && 'New York'),
+            bronx: dataJobs.filter(point => point.borough_community === 'Bronx'),
+            si: dataJobs.filter(point => point.borough_community === 'Staten Island'),
+            brooklyn: dataJobs.filter(point => point.borough_community === 'Brooklyn'),
+            
+        }
+        return obj[placeholder]
+    }
 
     componentDidMount=() => {
         this.dataJobs()
     }
 
 render() {  
-    const NY = this.state['New York']
-    const SI = this.state['Staten Island']
-    const LIC = this.state['Long Island City']
-    const {Bronx, Brooklyn, Manhattan, Queens, } =this.state
+    const {dataJobs } =this.state
+    console.log('dataJobs' , dataJobs )
+    console.log('YO THIS BRONX ' ,this.filterBorough('bronx'))
     return(
-        <div id="container-jobs">
-            <h1>Bronx Jobs and Internships</h1>
-            <div className="bronx">
-                {Bronx.map(job=>(
-                    <div className='jobPost'>
-                    <p>
-                        {job.agency}
-                    </p>
-                    <p>
-                        {job.address}
-                    </p>
-                    <p>
-                        {job.contact_number}
-                    </p><br/>
-                    </div>
-                ))}
-            </div>
-            <h1>New York Jobs and Internships</h1>
-            <div className="NY">
-                {NY.map(job=>(
-                    <div className='jobPost'>
-                    <p>
-                        {job.agency}
-                    </p>
-                    <p>
-                        {job.address}
-                    </p>
-                    <p>
-                        {job.contact_number}
-                    </p><br/>
-                    </div>
-                ))}
-            </div>
-            <h1>Manhattan Jobs and Internships</h1>
-            <div className="manhattan">
-                {Manhattan.map(job=>(
-                    <div className='jobPost'>
-                    <p>
-                        {job.agency}
-                    </p>
-                    <p>
-                        {job.address}
-                    </p>
-                    <p>
-                        {job.contact_number}
-                    </p><br/>
-                    </div>
-                ))}
-            </div>
-            <h1>Queens Jobs and Internships</h1>
-            <div className="queens">
-                {Queens.map(job=>(
-                    <div className='jobPost'>
-                    <p>
-                        {job.agency}
-                    </p>
-                    <p>
-                        {job.address}
-                    </p>
-                    <p>
-                        {job.contact_number}
-                    </p><br/>
-                    </div>
-                ))}
-            </div>
-            <h1>Brooklyn Jobs and Internships</h1>
-            <div className="brooklyn">
-                {Brooklyn.map(job=>(
-                    <div className='jobPost'>
-                    <p>
-                        {job.agency}
-                    </p>
-                    <p>
-                        {job.address}
-                    </p>
-                    <p>
-                        {job.contact_number}
-                    </p><br/>
-                    </div>
-                ))}
-            </div>
-                        
+        <div >
+            <h1>Jobs</h1>
+            <Layout dataArr={this.state.dataJobs} />
+            <span className='next change' onClick={this.handleNext}>NEXT</span>
+            
         </div>
     )
     }

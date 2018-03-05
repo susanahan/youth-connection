@@ -1,10 +1,9 @@
 import React from "react";
 import Dialog from "material-ui/Dialog";
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import getMuiTheme from "material-ui/styles/getMuiTheme";
+import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
+import injectTapEventPlugin from "react-tap-event-plugin";
 const muiTheme = getMuiTheme();
-
 
 const Info = el => (
   <div>
@@ -46,15 +45,8 @@ class Jobs extends React.Component {
     "jseventeen"
   ];
 
-  //   <Dialog
-  //   title={el.program_type}
-  //   modal={false}
-  //   open={this.state.open}
-  //   onRequestClose={this.handleDialogClose}
-  //   onTouchTap={this.handleDialogOpen}
-  // >
   handleDialogOpen = () => {
-    console.log('its opening')
+    console.log("its opening");
     this.setState({ open: true });
   };
   handleDialogClose = () => {
@@ -70,21 +62,30 @@ class Jobs extends React.Component {
             <h1>JOBS AND INTERNSHIPS</h1>
           </div>
           {this.props.dataArr.map((el, idx) => (
-            <div className={this.classArr[idx + 1] + " change"}>
-              <h3>{`Agency: ${el.agency}`} </h3>
-              <p>{`Borough community: ${el.borough_community}`}</p>
-              <p>{`Contact Number: ${el.contact_number}`}</p>
-              <p>{`Program: ${el.program}`}</p>
-              <p>{`Program Type: ${el.program_type}`}</p>
-              <p>{`Site name: ${el.site_name}`}</p>
-              <MuiThemeProvider muiTheme={muiTheme}>
+            <div onTouchTap={this.handleDialogOpen} className={this.classArr[idx + 1] + " change"}>
+                <h3>{`Agency: ${el.agency}`} </h3>
+                <p>{`Borough community: ${el.borough_community}`}</p>
+                <p>{`Contact Number: ${el.contact_number}`}</p>
+                <p>{`Program: ${el.program}`}</p>
+                <p>{`Program Type: ${el.program_type}`}</p>
+                <p>{`Site name: ${el.site_name}`}</p>
+
+            <MuiThemeProvider muiTheme={muiTheme}>
               <Dialog
                 title={el.program_type}
                 modal={false}
                 open={this.state.open}
                 onRequestClose={this.handleDialogClose}
-                onTouchTap={this.handleDialogOpen}
-              />
+              >
+              <div>
+                <h3>{`Agency: ${el.agency}`} </h3>
+                <p>{`Borough community: ${el.borough_community}`}</p>
+                <p>{`Contact Number: ${el.contact_number}`}</p>
+                <p>{`Program: ${el.program}`}</p>
+                <p>{`Program Type: ${el.program_type}`}</p>
+                <p>{`Site name: ${el.site_name}`}</p>
+              </div>
+              </Dialog>
               </MuiThemeProvider>
             </div>
           ))}

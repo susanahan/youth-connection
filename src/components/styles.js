@@ -13,14 +13,13 @@ const bodyStyle = {
   color: "black" 
 }
 
-const backStyle = {
-   opacity: 0.1,
-}
+// const backStyle = {
+//    opacity: 0.5,
+// }
 
 
 module.exports = {
     customContentStyle,
     popStyle,
-    bodyStyle,
-    backStyle
+    bodyStyle
 }

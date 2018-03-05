@@ -9,7 +9,6 @@ const muiTheme = getMuiTheme();
 const styles = require('./styles').popStyle
 const customContentStyle = require('./styles').customContentStyle
 const backgroundStyle = require('./styles').bodyStyle
-const backStyle = require('./styles').backStyle
 
 class Activities extends React.Component {
   constructor(props){
@@ -64,9 +63,12 @@ class Activities extends React.Component {
 
           <MuiThemeProvider muiTheme={muiTheme} >
             <Dialog
+              key={idx}
               modal={false}
               open={this.state.open}
               onRequestClose={this.handleDialogClose}
+              bodyStyle= {backgroundStyle}
+              contentStyle= {customContentStyle}
             >
             <h3>{`Agency: ${el.agency}`} </h3>
               <p>{`Borough community: ${el.borough_community}`}</p>

@@ -5,13 +5,14 @@ const MapInfo2 = spot => {
    let zipcode= spot.human_address.zip
    let convert =(obj) => {
         let string = JSON.stringify(obj)
-        return string.replace(/[`~!@#$%^&*()_|+\=÷¿?;:'",.<>\{\}\[\]\\\/]/gi, '');
+        let newString = string.replace(/[`~!@#$%^&*()_|+\=÷¿?;:'",.<>\{\}\[\]\\\/]/gi, '');
+        let mushString = newString.replace(/address|street|city|state/gi, "")
+        return mushString.replace(/zip/gi, " Zipcode: ");
         
    }
   return (
     <div>
     Address: {convert(address)} <br />
-      ZipCode: {zipcode}
     </div>
   );
 };

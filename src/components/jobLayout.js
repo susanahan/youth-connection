@@ -5,11 +5,15 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import injectTapEventPlugin from "react-tap-event-plugin";
 const muiTheme = getMuiTheme();
 
+const styles = require('./styles').popStyle
+const customContentStyle = require('./styles').customContentStyle
+const backgroundStyle = require('./styles').bodyStyle
 
 const Info = el => (
   <div>
     <h3>{`Agency: ${el.agency}`} </h3>
     <p>{`Borough community: ${el.borough_community}`}</p>
+    <p>{`Address: ${el.address}`}</p>
     <p>{`Contact Number: ${el.contact_number}`}</p>
     <p>{`Program: ${el.program}`}</p>
     <p>{`Program Type: ${el.program_type}`}</p>
@@ -66,6 +70,7 @@ class Jobs extends React.Component {
             <div onTouchTap={this.handleDialogOpen} className={this.classArr[idx + 1] + " change"}>
                 <h3>{`Agency: ${el.agency}`} </h3>
                 <p>{`Borough community: ${el.borough_community}`}</p>
+                <p>{`Address: ${el.address}`}</p>
                 <p>{`Contact Number: ${el.contact_number}`}</p>
                 <p>{`Program: ${el.program}`}</p>
                 <p>{`Program Type: ${el.program_type}`}</p>
@@ -73,13 +78,16 @@ class Jobs extends React.Component {
 
             <MuiThemeProvider muiTheme={muiTheme} >
               <Dialog
-                title={el.program_type}
+                key={idx}
                 modal={false}
                 open={this.state.open}
                 onRequestClose={this.handleDialogClose}
+                bodyStyle= {backgroundStyle}
+                contentStyle= {customContentStyle}
               >
                 <h3>{`Agency: ${el.agency}`} </h3>
                 <p>{`Borough community: ${el.borough_community}`}</p>
+                <p>{`Address: ${el.address}`}</p>
                 <p>{`Contact Number: ${el.contact_number}`}</p>
                 <p>{`Program: ${el.program}`}</p>
                 <p>{`Program Type: ${el.program_type}`}</p>

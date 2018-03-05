@@ -5,7 +5,8 @@ import Home from './components/Home';
 import Jobs from './components/Jobs';
 import AfterSchool from './components/Afterschool'
 import Search from "./components/Search";
-
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin()
 
 class App extends Component {
   constructor(props){
@@ -81,10 +82,10 @@ class App extends Component {
           </div> */}
 <nav className="HolyGrail-nav">
                   <ul>
-        <li className='fas fa-home'><Link style={{paddingLeft: 2, textDecoration: 'none'}} to="/"> HOME </Link> </li> {" "} {" "} 
-        <li className='fas fa-dollar-sign'><Link style={{paddingLeft: 2, textDecoration: 'none'}} to="/Jobs-Internships"> JOBS & INTERNSHIPS </Link> </li> {" "} {" "} 
-        <li className='fas fa-puzzle-piece'><Link style={{paddingLeft: 2, textDecoration: 'none'}} to="/AS-Activites"> AFTER SCHOOL ACTIVITES </Link> </li>{" "}{" "} 
-        <li className='fas fa-users'><Link style={{paddingLeft: 2, textDecoration: 'none'}} to="/About-Us"> ABOUT US </Link> </li>
+        <li className='fas fa-home'><Link style={{paddingRight: 7, textDecoration: 'none'}} to="/"> HOME </Link> </li> {" "} {" "} 
+        <li className='fas fa-dollar-sign'><Link style={{paddingRight: 7, textDecoration: 'none'}} to="/Jobs-Internships"> JOBS & INTERNSHIPS </Link> </li> {" "} {" "} 
+        <li className='fas fa-puzzle-piece'><Link style={{paddingLeft: 7, paddingRight: 7, textDecoration: 'none'}} to="/AS-Activites"> AFTER SCHOOL ACTIVITES </Link> </li>{" "}{" "} 
+        <li className='fas fa-users'><Link style={{ paddingLeft: 7, textDecoration: 'none'}} to="/About-Us"> ABOUT US </Link> </li>
       </ul> </nav>
           <Switch>
          <Route exact path="/" component={Home} />

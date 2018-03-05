@@ -19,7 +19,7 @@ body {
 }
 .hey{
   margin-top:50px;
-  margin-left:450px;
+  margin-left:400px;
   border:0px solid red;
   width:520px;
   height:200px;
@@ -550,9 +550,4 @@ hr.style11 {
 
 .spot.selected {
   transform: scale(1.5);
-}
-
-
-.pop{
-  background-color: blue;
 }

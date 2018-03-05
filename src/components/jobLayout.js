@@ -5,6 +5,8 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import injectTapEventPlugin from "react-tap-event-plugin";
 const muiTheme = getMuiTheme();
 
+// const styles = require('./styles').popStyle
+
 const Info = el => (
   <div>
     <h3>{`Agency: ${el.agency}`} </h3>
@@ -70,24 +72,23 @@ class Jobs extends React.Component {
                 <p>{`Program Type: ${el.program_type}`}</p>
                 <p>{`Site name: ${el.site_name}`}</p>
 
-            <MuiThemeProvider muiTheme={muiTheme}>
+            <MuiThemeProvider muiTheme={muiTheme} >
               <Dialog
                 title={el.program_type}
                 modal={false}
                 open={this.state.open}
                 onRequestClose={this.handleDialogClose}
               >
-              <div>
                 <h3>{`Agency: ${el.agency}`} </h3>
                 <p>{`Borough community: ${el.borough_community}`}</p>
                 <p>{`Contact Number: ${el.contact_number}`}</p>
                 <p>{`Program: ${el.program}`}</p>
                 <p>{`Program Type: ${el.program_type}`}</p>
                 <p>{`Site name: ${el.site_name}`}</p>
-              </div>
+
               </Dialog>
               </MuiThemeProvider>
-            </div>
+              </div>
           ))}
         </div>
       </div>

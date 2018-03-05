@@ -304,6 +304,6 @@ p{
   flex-wrap: wrap;
 }
 
-/* input[type="text"]{
-
-} */
+.pop{
+  background-color: blue;
+}

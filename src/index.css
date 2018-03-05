@@ -108,6 +108,9 @@ a {
 flex-direction: column;
 } */
 
+.fas{
+  padding-left:15px;
+}
 .next{
   position: fixed;
   left: 0;

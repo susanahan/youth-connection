@@ -9,7 +9,7 @@ const popStyle = {
 }
 
 const bodyStyle = {
-  backgroundColor: "#ffeb3b",
+  backgroundColor: "#ffe082",
   color: "black" 
 }
 

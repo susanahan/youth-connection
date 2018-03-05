@@ -6,9 +6,9 @@ import MapInfo from './MapInfo'
 import MapInfo2 from './MapInfo2'
 
 import Search from "./Search";
-// import GoogleMapReact from 'google-map-react';
 
-    
+
+
 class Home extends Component {
     constructor(props){
       super(props)
@@ -98,8 +98,11 @@ class Home extends Component {
         return (
         
             <div className='hey'> 
-                <div className="speech-bubble"></div>
-            <h1 className='groupName'>Youth Connection</h1>
+                <div className="page">
+            <span>Youth </span>
+            <span>Connection</span>
+
+            </div>
 
         <form onSubmit={this.handleEnter}>
           <input
@@ -114,7 +117,7 @@ class Home extends Component {
 
           </button>
         </form>
-   
+  
             <fieldset className='map-container'>
             <legend>Map</legend>
 

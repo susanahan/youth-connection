@@ -26,7 +26,8 @@ class Jobs extends React.Component {
     super(props);
 
     this.state = {
-      open: false
+      open: false,
+      id: null
     };
   }
 
@@ -50,13 +51,38 @@ class Jobs extends React.Component {
     "jseventeen"
   ];
 
-  handleDialogOpen = () => {
+  handleDialogOpen = (id) => {
     console.log("its opening");
-    this.setState({ open: true });
+    this.setState({ open: true, id:id });
   };
   handleDialogClose = () => {
     this.setState({ open: false });
   };
+
+  handlePopup = (el) => {
+    return (
+      <div>
+        <MuiThemeProvider muiTheme={muiTheme} >
+            <Dialog
+              modal={false}
+              open={this.state.open}
+              onRequestClose={this.handleDialogClose}
+              bodyStyle= {backgroundStyle}
+              contentStyle= {customContentStyle}
+            >
+            {console.log('the current idx is')}
+              <h3>{`Agency: ${el.agency}`} </h3>
+              <p>{`Borough community: ${el.borough_community}`}</p>
+              <p>{`Contact Number: ${el.contact_number}`}</p>
+              <p>{`Program: ${el.program}`}</p>
+              <p>{`Program Type: ${el.program_type}`}</p>
+              <p>{`Site name: ${el.site_name}`}</p>
+
+            </Dialog>
+            </MuiThemeProvider>
+      </div>
+    )
+  }
   render() {
     console.log("calling", this.props);
     return (
@@ -67,7 +93,7 @@ class Jobs extends React.Component {
             <h1>JOBS AND INTERNSHIPS</h1>
           </div>
           {this.props.dataArr.map((el, idx) => (
-            <div onTouchTap={this.handleDialogOpen} className={this.classArr[idx + 1] + " change"}>
+            <div onTouchTap={() => this.handleDialogOpen(idx)} className={this.classArr[idx + 1] + " change"}>
                 <h3>{`Agency: ${el.agency}`} </h3>
                 <p>{`Borough community: ${el.borough_community}`}</p>
                 <p>{`Address: ${el.address}`}</p>
@@ -76,25 +102,7 @@ class Jobs extends React.Component {
                 <p>{`Program Type: ${el.program_type}`}</p>
                 <p>{`Site name: ${el.site_name}`}</p>
 
-            <MuiThemeProvider muiTheme={muiTheme} >
-              <Dialog
-                key={idx}
-                modal={false}
-                open={this.state.open}
-                onRequestClose={this.handleDialogClose}
-                bodyStyle= {backgroundStyle}
-                contentStyle= {customContentStyle}
-              >
-                <h3>{`Agency: ${el.agency}`} </h3>
-                <p>{`Borough community: ${el.borough_community}`}</p>
-                <p>{`Address: ${el.address}`}</p>
-                <p>{`Contact Number: ${el.contact_number}`}</p>
-                <p>{`Program: ${el.program}`}</p>
-                <p>{`Program Type: ${el.program_type}`}</p>
-                <p>{`Site name: ${el.site_name}`}</p>
-
-              </Dialog>
-              </MuiThemeProvider>
+                {this.state.id === idx? this.handlePopup(el) : ""}
               </div>
           ))}
         </div>

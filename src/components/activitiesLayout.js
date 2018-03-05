@@ -15,7 +15,8 @@ class Activities extends React.Component {
     super(props)
 
     this.state ={
-        open: false
+        open: false,
+        id: null
     }
 }
   classArr = [
@@ -40,37 +41,28 @@ class Activities extends React.Component {
     "nineteen",
     "twenty"
   ];
-  handleDialogOpen = () => {
-    console.log("its opening");
-    this.setState({ open: true });
+  handleDialogOpen = (id) => {
+    this.setState({ open: true, id:id });
   };
+
   handleDialogClose = () => {
     this.setState({ open: false });
   };
-  render() {
+
+
+  handlePopup = (el) => {
     return (
       <div>
-        <div className="outside outline">
-        <div className="container">
-        <div className="one title"><h1>AfterSchool Activities</h1></div>
-        {this.props.dataArr.map((el, idx) =><div onTouchTap={this.handleDialogOpen} className={this.classArr[idx+1] + " change"}>
-          <h3>{`Agency: ${el.agency}`} </h3>
-          <p>{`Borough community: ${el.borough_community}`}</p>
-          <p>{`Contact Number: ${el.contact_number}`}</p>
-          <p>{`Program: ${el.program}`}</p>
-          <p>{`Program Type: ${el.program_type}`}</p>
-          <p>{`Site name: ${el.site_name}`}</p>
-
-          <MuiThemeProvider muiTheme={muiTheme} >
+        <MuiThemeProvider muiTheme={muiTheme} >
             <Dialog
-              key={idx}
               modal={false}
               open={this.state.open}
               onRequestClose={this.handleDialogClose}
               bodyStyle= {backgroundStyle}
               contentStyle= {customContentStyle}
             >
-            <h3>{`Agency: ${el.agency}`} </h3>
+            {console.log('the current idx is')}
+              <h3>{`Agency: ${el.agency}`} </h3>
               <p>{`Borough community: ${el.borough_community}`}</p>
               <p>{`Contact Number: ${el.contact_number}`}</p>
               <p>{`Program: ${el.program}`}</p>
@@ -79,6 +71,24 @@ class Activities extends React.Component {
 
             </Dialog>
             </MuiThemeProvider>
+      </div>
+    )
+  }
+  render() {
+    return (
+      <div>
+        <div className="outside outline">
+        <div className="container">
+        <div className="one title"><h1>AfterSchool Activities</h1></div>
+        {this.props.dataArr.map((el, idx) =><div value={idx} onTouchTap={() => this.handleDialogOpen(idx)} className={this.classArr[idx+1] + " change"}>
+          <h3 value={idx}>{`Agency: ${el.agency}`} </h3>
+          <p value={idx}>{`Borough community: ${el.borough_community}`}</p>
+          <p value={idx}>{`Contact Number: ${el.contact_number}`}</p>
+          <p value={idx}>{`Program: ${el.program}`}</p>
+          <p value={idx}>{`Program Type: ${el.program_type}`}</p>
+          <p value={idx}>{`Site name: ${el.site_name}`}</p>
+
+          {this.state.id === idx? this.handlePopup(el) : ""}
         </div>)
         }
       </div>

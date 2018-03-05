@@ -99,8 +99,8 @@ class Home extends Component {
         
             <div className='hey'> 
                 <div className="page">
-            <span>Youth </span>
-            <span>Connection</span>
+            <h1 className='yo'>Youth </h1>
+            <h1 className='yo'>Connection</h1>
 
             </div>
 

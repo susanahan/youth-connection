@@ -559,29 +559,29 @@ hr.style11 {
 
 .page{
   width: 600px;
-  margin: 3em auto;
-  padding: 10px 0;
+  margin: 2em auto;
+  padding: 7px 0;
   border-top: 1px solid #00BBE4;
   border-bottom:1px solid #00BBE4;
   text-align:center;
-}.page span,p{
+}.page h1{
   opacity:0;
   text-transform: uppercase;
   -webkit-transition: all 200ms ease-in-out;
    transition: all 200ms ease-in-out;
-}.page span{
+}.page h1{
 	font-size: 4.2rem;
   padding-bottom: 8px;
   text-shadow: 0 2px 1px rgba(0, 0, 0, .5);
   margin-right: 7px;
-}.page span:nth-child(1){
+}.page h1:nth-child(1){
   -webkit-animation: introText 2s 1;
 	-webkit-animation-delay: 1s;
 	-webkit-animation-fill-mode: forwards;
 	animation: introText 2s 1;
 	animation-delay: 1s;
 	animation-fill-mode: forwards;
-}.page span:nth-child(2){
+}.page h1:nth-child(2){
 	 color: #00BBE4;
   -webkit-animation: introText 2s 1;
 	-webkit-animation-delay: 2s;
@@ -589,37 +589,26 @@ hr.style11 {
 	animation: introText 2s 1;
 	animation-delay: 2s;
 	animation-fill-mode: forwards;
-}.page span:nth-child(3){
+}.page h1:nth-child(3){
   -webkit-animation: introText 2s 1;
 	-webkit-animation-delay: 3s;
 	-webkit-animation-fill-mode: forwards;
 	animation: introText 2s 1;
 	animation-delay: 3s;
 	animation-fill-mode: forwards;
-}.page span:nth-child(4){
+}.page h1:nth-child(4){
   -webkit-animation: introText 2s 1;
 	-webkit-animation-delay: 4s;
 	-webkit-animation-fill-mode: forwards;
 	animation: introText 2s 1;
 	animation-delay: 4s;
 	animation-fill-mode: forwards;
-}.page span:nth-child(5){
+}.page h1:nth-child(5){
   -webkit-animation: introText 2s 1;
 	-webkit-animation-delay: 5s;
 	-webkit-animation-fill-mode: forwards;
 	animation: introText 2s 1;
 	animation-delay: 5s;
-	animation-fill-mode: forwards;
-}.page p{
-  font-size: 14px;
-  line-height: 24px;
-  color: #00BBE4;
-  padding: 5px 0;
-  -webkit-animation: introText 2s 1;
-	-webkit-animation-delay: 6s;
-	-webkit-animation-fill-mode: forwards;
-	animation: introText 2s 1;
-	animation-delay: 6s;
 	animation-fill-mode: forwards;
 }
 

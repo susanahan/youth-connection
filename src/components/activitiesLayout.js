@@ -5,6 +5,9 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import injectTapEventPlugin from "react-tap-event-plugin";
 const muiTheme = getMuiTheme();
 
+
+const styles = require('./styles').popStyle
+
 class Activities extends React.Component {
   constructor(props){
       super(props)

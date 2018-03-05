@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Layout from "./jobLayout";
+import injectTapEventPlugin from 'react-tap-event-plugin';
 
 const Info = ({ dataArr }) => {
     return (
@@ -22,13 +24,14 @@ class Jobs extends Component {
     constructor(props){
         super(props)
         this.state = {
-          dataJobs:[]
-                }
+          dataJobs:[],
+          page: 0
+        }
       }
 
       dataJobs=()=> {
-        fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$limit=19`)
-                .then(response=>{
+        fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$limit=16&$offset=${this.state.page * 16}`)
+        .then(response=>{
             return response.json()
         })
         .then(data => {
@@ -40,6 +43,14 @@ class Jobs extends Component {
         .catch(err => {
             console.log(err)
         })
+    }
+      
+    handleNext = () => {
+        this.setState({
+            page: this.state.page + 1
+        })
+
+        this.dataJobs()
     }
       
 
@@ -61,13 +72,14 @@ class Jobs extends Component {
     }
 
 render() {  
-    const {dataJobs, boroughs, } =this.state
+    const {dataJobs } =this.state
     console.log('dataJobs' , dataJobs )
     console.log('YO THIS BRONX ' ,this.filterBorough('bronx'))
     return(
         <div >
             <h1>Jobs</h1>
-            <Info dataArr={this.state.dataJobs} />
+            <Layout dataArr={this.state.dataJobs} />
+            <span className='next' onClick={this.handleNext}>NEXT</span>
             
         </div>
     )

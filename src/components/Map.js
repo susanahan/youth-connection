@@ -1,89 +1,9 @@
 import React from "react";
 import GoogleMapReact from "google-map-react";
-const YOUR_KEY = 'AIzaSyAw18hOsPcRzhnr-O_SuP2XEedQizSUQDI'
+import axios from "axios";
 
-const K_WIDTH = 25;
-const K_HEIGHT = 20;
-
-const iconImageM = {
-    position: 'absolute',
-    width: K_WIDTH,
-    height: K_HEIGHT,
-    left: -K_WIDTH / 2,
-    top: -K_HEIGHT / 2,
-    border: '1px solid #f44336',
-    borderRadius: K_HEIGHT,
-    backgroundColor: 'white',
-    textAlign: 'center',
-    color: '#3f51b5',
-    fontSize: 15,
-    fontWeight: 'bold',
-    padding: 4
-  };
-
-const iconImageXS = {
-    position: 'absolute',
-    width: K_WIDTH,
-    height: K_HEIGHT,
-    left: -K_WIDTH / 2,
-    top: -K_HEIGHT / 2,
-    border: '1px solid #f44336',
-    borderRadius: K_HEIGHT,
-    backgroundColor: 'white',
-    textAlign: 'center',
-    color: '#3f51b5',
-    fontSize: 5,
-    fontWeight: 'bold',
-    padding: 4
-  };
-
-  const iconImageS = {
-    position: 'absolute',
-    width: K_WIDTH,
-    height: K_HEIGHT,
-    left: -K_WIDTH / 2,
-    top: -K_HEIGHT / 2,
-    border: '1px solid #f44336',
-    borderRadius: K_HEIGHT,
-    backgroundColor: 'white',
-    textAlign: 'center',
-    color: '#3f51b5',
-    fontSize: 10,
-    fontWeight: 'bold',
-    padding: 4
-  };
-
-
-const greatPlaceStyle = {
-  position: 'absolute',
-  width: K_WIDTH,
-  height: K_HEIGHT,
-  left: -K_WIDTH / 2,
-  top: -K_HEIGHT / 2,
-
-  border: '1px solid #f44336',
-  borderRadius: K_HEIGHT,
-  backgroundColor: 'white',
-  textAlign: 'center',
-  color: '#3f51b5',
-  fontSize: 20,
-  fontWeight: 'bold',
-  padding: 4
-};
-
-const ASMarker = () =>{
-    return( 
-     <i style={greatPlaceStyle} className='fab fa-earlybirds'>  </i>
-    )
- }
-
-
-const JobsMarker = () =>{
-    return( 
-     <i style={greatPlaceStyle} className='far fa-money-bill-alt'>  </i>
-
-    )
- }
+import JobsMarker from "./MapMarker";
+import AsMarker from "./MapMarker2";
 
 const defaultOptions = {
   defaultCenter: { lat: 40.7128, lng: -73.9 },
@@ -92,20 +12,18 @@ const defaultOptions = {
 
 class Map extends React.Component {
   state = {
-    mapOptions: defaultOptions,
-    locateJobs: [],
-    locateActs: [],
-    selectedSpotId: null
-  };
+        mapOptions: defaultOptions,
+        locateJobs: [],
+        locateActs: [],
+        selectedSpotId: null,
+        selectedASId:null           
+      };
 
   shouldComponentUpdate(nextProps, nextState) {
+    // Since this component does not depend on props, we only rerender when state changes
+    // So we avoid unneeded renders when parent (App) component rerenders
     return this.state !== nextState;
   }
-
-  componentDidMount(){
-    this.dataJobs();
-    this.dataActivties();
-}
 
 dataJobs=()=> {
     fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$where=latitude is not null&$limit=150`)
@@ -113,9 +31,13 @@ dataJobs=()=> {
         return response.json()
     })
     .then(data => {
+      let map1 = data.map(x => x);
+      console.log('yo ', map1)
         this.setState({
-            locateJobs: data.filter(point => point.latitude && point.longitude)
+            locateJobs: map1.filter(point => point.latitude && point.longitude)
             }) 
+            console.log('WHAT IS locateJobs:  ', this.state.locateJobs)
+            
     })
     .catch(err => {
         console.log(err)
@@ -124,21 +46,20 @@ dataJobs=()=> {
 
 
 dataActivties=()=> {
-    fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json?$where=latitude is not null&$limit=19&$select=location_1`)
+    fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json?$where=latitude is not null&$limit=19`)
     .then(response=>{
         return response.json()
     })
     .then(data => {
         let map1 = data.map(x => x.location_1);
-        console.log('WHAT IS DATA: ', map1)
+        
+        console.log('WHAT IS DATA1: ', map1)
         
         this.setState({
             locateActs: map1.filter(point => point.latitude && point.longitude)
             
-        
             }) 
         console.log('FILTERED! Acts: ', this.state.locateActs)
-            
     })
     .catch(err => {
         console.log(err)
@@ -146,47 +67,64 @@ dataActivties=()=> {
 }
 
 
+  componentDidMount() {
+    // Get the 200 latest rat sightings
+   this.dataActivties();
+   this.dataJobs();
+  }
+
   onMapChange = options => {
     this.setState({
       mapOptions: options
     });
   };
 
-  onSpotClick = spot => {
+  onRatClick = spot => {
     console.log("clicked on: ", spot);
-    this.props.onSpotClick(spot);
-    this.setState({ selectedSpotId: spot.unique_key });
+    this.props.onRatClick(spot);
+    this.setState({ selectedSpotId: spot.bin });
+  };
+
+  onRatClick2 = spot => {
+    console.log("clicked on2: ", spot);
+    this.props.onRatClick2(spot);
+    this.setState({ selectedASId: spot.bin });
   };
 
   render() {
-    const { locateJobs, locateActs, mapOptions, selectedSpotId } = this.state;
+    const { locateJobs, locateActs, mapOptions, selectedSpotId, selectedASId } = this.state;
     const { zoom } = mapOptions;
 
-    const image = zoom >= 16 ? iconImageM : zoom >= 14 ? iconImageS : iconImageXS;
+    // const image = zoom >= 16 ? ratImageM : zoom >= 14 ? ratImageS : ratImageXS;
 
     return (
-        
       <GoogleMapReact
-        bootstrapURLKeys={{ key: [YOUR_KEY] }}
+        bootstrapURLKeys={{
+          key: "AIzaSyAw18hOsPcRzhnr-O_SuP2XEedQizSUQDI"
+        }}
         options={this.createMapOptions}
         onChange={this.onMapChange}
         {...defaultOptions}
         {...mapOptions}
-      >
-        {locateJobs.map(point => (
+      > 
+        {locateJobs.map((spot,index) => (
           <JobsMarker
-            locateJobs={point}
-            selected={point.unique_key === selectedSpotId}
-            lat={point.latitude}
-            lng={point.longitude}
+            spot={spot}
+            selected={index === selectedSpotId}
+            onRatClick={this.onRatClick}
+            key={index}
+            lat={spot.latitude}
+            lng={spot.longitude}
           />
         ))}
-          {locateActs.map(point => (
-          <ASMarker
-            locateActs={point}
-            selected={point.unique_key === selectedSpotId}
-            lat={point.latitude}
-            lng={point.longitude}
+        {locateActs.map((spot,index) => (
+          <AsMarker
+            spot={spot}
+            selected={index === selectedASId}
+            onRatClick2={this.onRatClick2}
+            key={index}
+            lat={spot.latitude}
+            lng={spot.longitude}
           />
         ))}
       </GoogleMapReact>

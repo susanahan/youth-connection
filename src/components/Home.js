@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 // import { Link, Switch, Route} from 'react-router-dom'
 // import { GoogleMap } from "react-google-maps"
 import Map from './Map'
+import MapInfo from './MapInfo'
+import MapInfo2 from './MapInfo2'
 
-import GoogleMapReact from 'google-map-react';
+import Search from "./Search";
+// import GoogleMapReact from 'google-map-react';
 
     
 class Home extends Component {
@@ -11,7 +14,10 @@ class Home extends Component {
       super(props)
       this.state = {
         dataJob:[],
-        dataAfter:[], 
+        dataAfter:[],
+        searchVal:'',
+        selectedSpotId:null,
+        selectedASId:null   
       }
     }
 
@@ -57,25 +63,72 @@ class Home extends Component {
         })
     }
     
- 
+    onSpotClick = spot => {
+        console.log('HI selectedSpotId ', this.state.selectedSpotId)
+        this.setState({ selectedSpotId: spot });
+      }; 
+
+    onSpotClick2 = spotAS => {
+    console.log('HI spotAS ', this.state.selectedASId)
+    this.setState({ selectedASId: spotAS });
+    }; 
+
     componentDidMount(){
         this.dataJobs();
         this.dataActivties();
     }
+    
+
+    handleText = e => {
+        this.setState({ searchVal: e.target.value });
+      };
+    
+      handleEnter = e => {
+        e.preventDefault();
+        const { searchVal } = this.state;
+        this.props.history.push(`/search/${searchVal}`);
+      };
+    
+      
+     
 
     render() {
-
+        const { searchVal, selectedASId, selectedSpotId } = this.state;
+        
         return (
-        <div>  
+        
             <div className='hey'> 
+                <div className="speech-bubble"></div>
+            <h1 className='groupName'>Youth Connection</h1>
 
+        <form onSubmit={this.handleEnter}>
+          <input
+          className='searchTerm'
+            type="text"
+            value={searchVal}
+            placeholder="program name"
+            onInput={this.handleText}
+          />
+          <button type="submit" className="searchButton">
+          <i class="fa fa-search"></i>
+
+          </button>
+        </form>
+   
             <fieldset className='map-container'>
             <legend>Map</legend>
 
-             <Map onSpotClick={this.onSpotClick} />
+             <Map onRatClick={this.onSpotClick} onRatClick2={this.onSpotClick2} />
             </fieldset>
+            <div id="rat-info">
+          {selectedSpotId ? MapInfo(selectedSpotId) : <strong>  </strong>}
+          
+          <hr />
+          {selectedASId ? MapInfo2(selectedASId) : <strong> </strong>}
+
         </div>
         </div>
+ 
         );
       }
     }

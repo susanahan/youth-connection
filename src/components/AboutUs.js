@@ -12,7 +12,7 @@ const About = () => (
             <p>DEMO LEAD</p>
             <i className="far fa-hand-peace"> Fun Fact:  </i>
             <p>I like to ride bikes </p>
-            <i className="fab fa-github"> Johnathan Alston </i>
+            <i className="fab fa-github"> JohnAlston11 </i>
 
     </div>
 
@@ -42,7 +42,7 @@ const About = () => (
     <p>PROGRAM MANAGER</p>
     <i className="far fa-hand-peace"> Fun Fact:  </i>
             <p>I long board </p>
-            <i className="fab fa-github"> ??? </i>
+            <i className="fab fa-github"> JoyceAja </i>
 
     </div>
 
@@ -53,11 +53,11 @@ const About = () => (
     <i className="fas fa-user"></i> Shaedon Blackman
 
     <hr className='style11' />
-    <p>DEMO LEAD</p>
+    <p>DESIGN LEAD</p>
     <i className="far fa-hand-peace"> Fun Fact:  </i>
 
             <p>I design clothes.</p>
-            <i className="fab fa-github"> ?? </i>
+            <i className="fab fa-github"> sblackstealth </i>
 
     </div>
 

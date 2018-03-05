@@ -612,6 +612,12 @@ hr.style11 {
 	animation-fill-mode: forwards;
 }
 
+.strong{
+  font-weight:bold;
+  font-size:20px;
+  margin-top:15px;
+  text-align: center;
+}
 
 @-webkit-keyframes introText{
   0% {opacity: 0;}

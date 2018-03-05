@@ -123,8 +123,8 @@ class Home extends Component {
 
              <Map onRatClick={this.onSpotClick} onRatClick2={this.onSpotClick2} />
             </fieldset>
-            <div id="rat-info">
-          {selectedSpotId ? MapInfo(selectedSpotId) : <strong>  </strong>}
+            <div id='rat-info' className='strong'>
+          {selectedSpotId ? MapInfo(selectedSpotId) : <p className='strong'>  </p>}
           
           <hr />
           {selectedASId ? MapInfo2(selectedASId) : <strong> </strong>}

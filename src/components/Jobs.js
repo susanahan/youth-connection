@@ -79,7 +79,7 @@ render() {
         <div >
             <h1>Jobs</h1>
             <Layout dataArr={this.state.dataJobs} />
-            <span className='next' onClick={this.handleNext}>NEXT</span>
+            <span className='next change' onClick={this.handleNext}>NEXT</span>
             
         </div>
     )

@@ -46,7 +46,7 @@ dataJobs=()=> {
 
 
 dataActivties=()=> {
-    fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json?$where=latitude is not null&$limit=19`)
+    fetch(`https://data.cityofnewyork.us/resource/mbd7-jfnc.json?$where=latitude is not null&$limit=19&$select=location_1`)
     .then(response=>{
         return response.json()
     })

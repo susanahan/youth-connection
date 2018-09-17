@@ -58,6 +58,7 @@ class App extends Component {
 
   handleSearch = ({match}) => {
     const { dataJob } = this.state
+    console.log('just making some changes')
    return <Search infoArr={dataJob} match={match}/>
   }
 

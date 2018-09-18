@@ -5,9 +5,9 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import injectTapEventPlugin from "react-tap-event-plugin";
 const muiTheme = getMuiTheme();
 
-const styles = require('./styles').popStyle
-const customContentStyle = require('./styles').customContentStyle
-const backgroundStyle = require('./styles').bodyStyle
+const styles = require('../styles').popStyle
+const customContentStyle = require('../styles').customContentStyle
+const backgroundStyle = require('../styles').bodyStyle
 
 const Info = el => (
   <div>

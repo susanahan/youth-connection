@@ -1,43 +1,23 @@
 import React, { Component } from 'react';
 import Layout from "./jobLayout";
+import axios from "axios";
 import injectTapEventPlugin from 'react-tap-event-plugin';
-
-// const Info = ({ dataArr }) => {
-//     return (
-//         <div>
-//             {dataArr.map((el) => {
-//                 return <p> {`Agency: ${el.agency}`} <br></ br>
-//                            {`Address: ${el.address}`} <br></ br>
-//                            {`Borough community: ${el.borough_community}`} <br></ br>
-//                            {`Contact Number: ${el.contact_number}`} <br></ br>
-//                            {`Program: ${el.program}`} <br></ br>
-//                            {`Program Type: ${el.program_type}`} <br></ br>
-//                            {`Site name: ${el.site_name}`} <br></ br>
-//                         </p>
-//                 })}
-//         </div>
-//     )
-// };
-
 
 class Jobs extends Component {
     constructor(props){
         super(props)
         this.state = {
-          dataJobs:[],
+          jobs:[],
           page: 0
         }
       }
 
       dataJobs=()=> {
-        fetch(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$limit=16&$offset=${this.state.page * 16}`)
-        .then(response=>{
-            return response.json()
-        })
+        axios
+        .get(`https://data.cityofnewyork.us/resource/6fic-ympf.json?$limit=16&$offset=${this.state.page * 16}`)
         .then(data => {
-            console.log('JOHN FETCH Jobs: ', data)
             this.setState({
-                dataJobs: data,
+                jobs: data,
             }) 
         })
         .catch(err => {
@@ -73,12 +53,12 @@ class Jobs extends Component {
 
 render() {  
     const {dataJobs } =this.state
-    console.log('dataJobs' , dataJobs )
+    // console.log('dataJobs' , dataJobs )
     // console.log('YO THIS BRONX ' ,this.filterBorough('bronx'))
     return(
         <div >
-            <h1>Jobs</h1>
-            <Layout dataArr={this.state.dataJobs} />
+            {/* <h1>Jobs</h1> */}
+            <Layout dataArr={this.state.jobs} />
             <span className='next change' onClick={this.handleNext}>NEXT</span>
             
         </div>

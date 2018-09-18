@@ -102,7 +102,7 @@ class Home extends Component {
         </div>
         <div className="project">
         <div className="project-name">Youth Connection</div>
-        <div className="project-description">Search opportunities for NYC Youths</div>
+        <div className="project-description">Search opportunities for NYC Youth </div>
         </div>
         {/* <div className="page">
           <h1 className="yo">Youth </h1>

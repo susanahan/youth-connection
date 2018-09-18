@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { Link, Switch, Route } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import Home from "./components/Home/Home";
 import Jobs from "./components/Job/Jobs";
-import AfterSchool from "./components/Activities/Afterschool";
+import Activities from "./components/Activities/Activities";
 import Search from "./components/Map/Search";
 
-import Header from "./components/Header/header"
+import Header from "./components/Header/header";
 
 class App extends Component {
   constructor(props) {
@@ -30,8 +30,12 @@ class App extends Component {
   render() {
     return (
       <div className="app-container">
-         <Header />
-         <Home />
+        <Header />
+        <Switch>
+          <Route exact path="/" component={ Home } />
+          <Route path="/jobs" component={ Jobs } />
+          <Route path="/activities" component={ Activities } />
+        </Switch>
       </div>
     );
   }

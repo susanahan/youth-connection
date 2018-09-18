@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 import "./header.css"
 
@@ -8,10 +9,10 @@ render(){
         <div className="header">
             <div className="logo">YC</div>
             <nav className="nav">
-            <div className="nav-item"><a>Home</a></div>
-            <div className="nav-item"><a>Jobs</a></div>
-            <div className="nav-item"><a>Activities</a></div>
-            <div className="nav-item"><a>Location</a></div>
+            <div className="nav-item"><Link to="/">Home</Link></div>
+            <div className="nav-item"><Link to="/jobs">Jobs</Link></div>
+            <div className="nav-item"><Link to="/activities">Activities</Link></div>
+            <div className="nav-item"><Link to="/location">Location</Link></div>
             </nav>
         </div>
     )

@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css?family=Noto+Serif+KR');
+
+.home{
+    /* height:100vh; */
+    display: flex;
+    justify-content: space-around;
+    color: #162238;
+}
+.img-container{
+    width:600px;
+    height:500px;
+    background-image: url("../../home-pic.jpg");
+    background-repeat: none;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    /* margin-left: 50px; */
+    margin-top:50px;
+}
+.project{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.project-name{
+    font-size: 64px;
+}
+.project-description{
+    font-size:24px;
+}
